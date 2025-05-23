@@ -1,0 +1,368 @@
+/* AdminDashboard.css */
+.admin-dashboard-container {
+  min-height: 100vh;
+  background-color: #f8f9fc;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.admin-dashboard-content {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.dashboard-subtitle {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin: 0.5rem 0 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  color: #6c757d;
+}
+
+.search-input {
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  width: 220px;
+  transition: all 0.2s;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+.notification-dropdown {
+  position: relative;
+}
+
+.notification-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.notification-icon:hover {
+  background-color: #f1f5f9;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: #ef4444;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.notification-menu {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 320px;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s;
+}
+
+.notification-dropdown:hover .notification-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.notification-header {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  margin: 0;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.notification-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+  color: #4b5563;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.notification-item:hover {
+  background-color: #f8fafc;
+}
+
+.notification-item.new {
+  background-color: #f0f9ff;
+}
+
+.notification-new-marker {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: #3b82f6;
+  border-radius: 50%;
+}
+
+.no-notifications {
+  padding: 1rem;
+  text-align: center;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon {
+  background-color: #f0f9ff;
+  width: 48px;
+  height: 48px;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  color: #3b82f6;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.stat-title {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin: 0.25rem 0 0;
+}
+
+.dashboard-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-section {
+  background-color: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dashboard-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-icon {
+  margin-right: 0.75rem;
+  color: #3b82f6;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.section-description {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.action-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.action-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.section-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.section-button.primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.section-button.primary:hover {
+  background-color: #2563eb;
+}
+
+.section-button.secondary {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.section-button.secondary:hover {
+  background-color: #e2e8f0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-right {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .dashboard-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dark-mode .admin-dashboard-container {
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+.dark-mode .stat-card,
+.dark-mode .dashboard-section {
+  background-color: #1f2937;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  color: #f3f4f6;
+}
+
+.dark-mode .section-title,
+.dark-mode .dashboard-title {
+  color: #2563eb;
+}

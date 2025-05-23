@@ -1,0 +1,311 @@
+.hero-dashboard {
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard {
+  font-family: "Segoe UI", sans-serif;
+  padding-top: 20px;
+}
+
+.dashboard-mains {
+  max-width: 1300px;
+  margin: auto;
+  padding: 32px 24px;
+  background-color: transparent;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  font-size: 20px;
+}
+
+.card-icon.blue {
+  background-color: #ebf8ff;
+  color: #2563eb;
+}
+
+.card-icon.purple {
+  background-color: #f5f3ff;
+  color: #7e22ce;
+}
+
+.card-icon.red {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.card-icon.green {
+  background-color: #ecfdf5;
+  color: #059669;
+}
+
+.subtext {
+  font-size: 12px;
+  color: #6b7280;
+  transition: color 0.3s ease;
+}
+
+.card-value {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card-value.green {
+  color: #059669;
+}
+
+.card-value.orange {
+  color: #d97706;
+}
+
+.card-value.red {
+  color: #dc2626;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.progress {
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress.blue {
+  background-color: #2563eb;
+}
+
+.progress.purple {
+  background-color: #7e22ce;
+}
+
+.progress.red {
+  background-color: #dc2626;
+}
+
+.progress.green {
+  background-color: #059669;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 8px;
+  transition: color 0.3s ease;
+}
+
+.status-alerts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  height: 300px;
+}
+
+.alerts,
+.system-status {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  height: 300px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.red-alert {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.yellow-alert {
+  background-color: #fefce8;
+  color: #ca8a04;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.green-dot {
+  background-color: #059669;
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
+}
+
+.status-text {
+  font-weight: 600;
+  color: #059669;
+  font-size: 14px;
+}
+
+/* Dark mode styles */
+body.dark-mode .hero-dashboard {
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+body.dark-mode .card,
+body.dark-mode .alerts,
+body.dark-mode .system-status {
+  background-color: #1f2937;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  color: #f3f4f6;
+}
+
+body.dark-mode .subtext,
+body.dark-mode .range-labels {
+  color: #9ca3af;
+}
+
+body.dark-mode .progress-bar {
+  background-color: #374151;
+}
+
+body.dark-mode .red-alert {
+  background-color: rgba(185, 28, 28, 0.15);
+  color: #fca5a5;
+}
+
+body.dark-mode .yellow-alert {
+  background-color: rgba(202, 138, 4, 0.15);
+  color: #fcd34d;
+}
+
+body.dark-mode .threshold-markers .min-threshold,
+body.dark-mode .threshold-markers .max-threshold {
+  background-color: #d1d5db;
+}
+
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode span:not(.card-value) {
+  color: #f3f4f6;
+}
+
+/* Threshold markers styles (these were missing in your original CSS) */
+.threshold-markers {
+  position: relative;
+  height: 15px;
+  margin-top: -15px;
+}
+
+.min-threshold,
+.max-threshold {
+  position: absolute;
+  width: 2px;
+  height: 16px;
+  background-color: #6b7280;
+  top: -4px;
+}
+
+.min-threshold::after,
+.max-threshold::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: inherit;
+  border-radius: 50%;
+  left: -3px;
+  top: -4px;
+}
+
+/* Alert severity styles (these were missing in your original CSS) */
+.alert-severity {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.alert-severity.high {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+}
+
+.alert-severity.medium {
+  background-color: rgba(217, 119, 6, 0.1);
+  color: #d97706;
+}
+
+body.dark-mode .alert-severity.high {
+  background-color: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+}
+
+body.dark-mode .alert-severity.medium {
+  background-color: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+}
+
+/* Transitions for smooth mode switching */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}

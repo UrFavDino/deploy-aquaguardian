@@ -1,0 +1,998 @@
+/* UserVerificationReview.css */
+.user-verification-container {
+  min-height: 100vh;
+  background-color: #f8f9fc;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.verification-content {
+  padding: 1.5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.verification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.verification-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.title-icon {
+  margin-right: 0.75rem;
+  color: #3b82f6;
+}
+
+.verification-subtitle {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin: 0.5rem 0 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  color: #6c757d;
+}
+
+.search-input {
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  width: 280px;
+  transition: all 0.2s;
+  color: black;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+.filter-container {
+  position: relative;
+}
+
+.filter-button {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: #475569;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-button:hover {
+  background-color: #f1f5f9;
+}
+
+.filter-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+}
+
+.filter-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 320px;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.filter-title {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  margin: 0;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.filter-groups {
+  padding: 0.75rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.filter-group {
+  margin-bottom: 1rem;
+}
+
+.filter-group-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #475569;
+  margin: 0 0 0.5rem;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.filter-option input {
+  margin-right: 0.5rem;
+}
+
+.filter-label {
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.filter-action {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.filter-action.clear {
+  background-color: #fff;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.filter-action.clear:hover {
+  background-color: #f1f5f9;
+}
+
+.filter-action.apply {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.filter-action.apply:hover {
+  background-color: #2563eb;
+}
+
+.verification-tabs {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: #3b82f6;
+}
+
+.tab.active {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #3b82f6;
+}
+
+.tab-icon {
+  margin-right: 0.5rem;
+}
+
+.tab-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e2e8f0;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 600;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  padding: 0 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.verification-main {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.submissions-list {
+  padding: 1rem;
+}
+
+.submissions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* --- ENHANCEMENTS --- */
+
+/* 1. Table Modernization & Responsiveness */
+.submissions-list {
+  overflow-x: auto;
+}
+.submissions-table th,
+.submissions-table td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+.submissions-table tr {
+  transition: background 0.18s;
+}
+.submissions-table tr:nth-child(even) {
+  background: #f8f9fc;
+}
+.submissions-table tr:hover {
+  background: #eaf1fb;
+}
+.priority-badge,
+.status-badge {
+  display: inline-block;
+  padding: 0.2em 0.8em;
+  border-radius: 1em;
+  font-weight: 600;
+  font-size: 0.9em;
+  text-transform: capitalize;
+}
+.priority-high {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.priority-medium {
+  background: #fef9c3;
+  color: #b45309;
+}
+.priority-low {
+  background: #d1fae5;
+  color: #047857;
+}
+.status-approved {
+  background: #d1fae5;
+  color: #047857;
+}
+.status-rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.status-pending {
+  background: #f3f4f6;
+  color: #64748b;
+}
+
+/* 2. Cardify Detail View */
+.submission-detail {
+  padding: 2rem;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+.detail-title {
+  flex: 1;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+.dark-mode .detail-title {
+  color: #2563eb;
+}
+
+.dark-mode .tab-count {
+  background-color: #1f2937;
+  color: #f3f4f6;
+}
+.back-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.15s;
+  gap: 0.4rem;
+}
+.back-button:hover {
+  color: #2563eb;
+}
+.detail-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.detail-action-button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.97rem;
+  font-weight: 500;
+  padding: 0.45rem 1.1rem;
+  cursor: pointer;
+  background: #f1f5f9;
+  color: #334155;
+  transition: background 0.18s, color 0.18s;
+}
+.detail-action-button.approve {
+  background: #4ade80;
+  color: #065f46;
+}
+.detail-action-button.reject {
+  background: #f87171;
+  color: #991b1b;
+}
+.detail-action-button.download {
+  background: #e0e7ef;
+  color: #2563eb;
+}
+.detail-action-button:hover {
+  filter: brightness(0.96);
+}
+
+/* 3. Info Grid & Document Cards */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  gap: 1.1rem 2.5rem;
+  margin-top: 0.5rem;
+}
+.info-item.full-width {
+  grid-column: span 2;
+}
+.info-label {
+  font-weight: 600;
+  color: #64748b;
+  font-size: 0.97rem;
+}
+.info-value {
+  margin-left: 0.1rem;
+  color: #334155;
+  font-size: 1rem;
+}
+.status-text.status-approved {
+  color: #047857;
+}
+.status-text.status-rejected {
+  color: #b91c1c;
+}
+.status-text.status-pending {
+  color: #64748b;
+}
+
+.documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.1rem;
+}
+.document-card {
+  background: #fff;
+  border-radius: 0.7rem;
+  box-shadow: 0 1.5px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.1rem;
+  transition: box-shadow 0.16s, transform 0.15s;
+  border: 1.5px solid #e5e9f2;
+}
+.document-card:hover {
+  box-shadow: 0 6px 24px rgba(59, 130, 246, 0.08);
+  transform: translateY(-2px) scale(1.01);
+  border-color: #3b82f6;
+}
+.document-icon {
+  margin-bottom: 0.7rem;
+  color: #3b82f6;
+}
+.document-title {
+  font-size: 1.09rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.18rem;
+}
+.document-meta {
+  font-size: 0.88rem;
+  color: #64748b;
+}
+.document-view-button {
+  margin-top: 0.7rem;
+  background: #e0e7ef;
+  color: #2563eb;
+  border: none;
+  border-radius: 0.4rem;
+  font-weight: 500;
+  font-size: 0.94rem;
+  padding: 0.4rem 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background 0.17s, color 0.18s;
+}
+.document-view-button:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
+/* Review Notes */
+.review-textarea {
+  width: 100%;
+  min-height: 90px;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  padding: 0.8rem;
+  font-size: 1rem;
+  color: #334155;
+  margin-top: 0.5rem;
+  resize: vertical;
+  transition: border 0.15s, box-shadow 0.15s;
+}
+.review-textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px #3b82f622;
+}
+
+/* 4. Confirmation Dialog */
+.confirmation-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 41, 59, 0.17);
+  backdrop-filter: blur(2.5px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.confirmation-dialog {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 8px 40px rgba(59, 130, 246, 0.14);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: dialogAppear 0.25s cubic-bezier(0.23, 1.23, 0.58, 1) 1;
+}
+@keyframes dialogAppear {
+  from {
+    transform: scale(0.94) translateY(32px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+.confirmation-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+.confirmation-message {
+  color: #64748b;
+  margin-bottom: 1.5rem;
+  font-size: 1.07rem;
+}
+.confirmation-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+.confirmation-button {
+  padding: 0.55rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.01rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.confirmation-button.cancel {
+  background: #f1f5f9;
+  color: #334155;
+}
+.confirmation-button.cancel:hover {
+  background: #e2e8f0;
+}
+.confirmation-button.approve {
+  background: #4ade80;
+  color: #065f46;
+}
+.confirmation-button.approve:hover {
+  background: #22d3ee;
+  color: #075985;
+}
+.confirmation-button.reject {
+  background: #f87171;
+  color: #991b1b;
+}
+.confirmation-button.reject:hover {
+  background: #f43f5e;
+  color: #fff;
+}
+
+/* 5. Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+.pagination-info {
+  color: #64748b;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.pagination-button {
+  background: #f1f5f9;
+  border: none;
+  border-radius: 0.4rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #334155;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.pagination-button:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
+/* General */
+.no-submissions {
+  text-align: center;
+  color: #64748b;
+  font-size: 1.09rem;
+  padding: 2.5rem 0;
+}
+.section-title {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.8rem;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.action-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f6;
+  z-index: 1;
+}
+
+/* Individual action color cues */
+.action-button.view {
+  background: #e0e7ef;
+  color: #2563eb;
+}
+.action-button.approve {
+  background: #d1fae5;
+  color: #047857;
+}
+.action-button.reject {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.action-button.download {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.action-button.view:hover,
+.action-button.view:focus {
+  background: #3b82f6;
+  color: #fff;
+  transform: translateY(-2px) scale(1.07);
+}
+
+.action-button.approve:hover,
+.action-button.approve:focus {
+  background: #4ade80;
+  color: #065f46;
+  transform: translateY(-2px) scale(1.07);
+}
+
+.action-button.reject:hover,
+.action-button.reject:focus {
+  background: #f87171;
+  color: #fff;
+  transform: translateY(-2px) scale(1.07);
+}
+
+.action-button.download:hover,
+.action-button.download:focus {
+  background: #e0e7ef;
+  color: #2563eb;
+  transform: translateY(-2px) scale(1.07);
+}
+
+/* Optional: Tooltip styling for actions */
+.action-button[title]::after {
+  content: attr(title);
+  position: absolute;
+  left: 50%;
+  bottom: 110%;
+  transform: translateX(-50%);
+  background: #334155;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.32em 0.8em;
+  border-radius: 0.4rem;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 0.18s;
+  z-index: 10;
+}
+.action-button:hover[title]::after,
+.action-button:focus[title]::after {
+  opacity: 1;
+}
+
+/* Make sure action-buttons don't wrap */
+td .action-buttons {
+  white-space: nowrap;
+}
+
+.dark-mode .user-verification-container {
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+.dark-mode .submissions-list {
+  background-color: #1f2937;
+  color: #f3f4f6;
+  border-radius: 10px;
+}
+
+/* UserVerificationReview.css */
+
+/* --- Global Dark Mode --- */
+.dark-mode .user-verification-container {
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+.dark-mode .verification-header,
+.dark-mode .verification-title,
+.dark-mode .verification-subtitle {
+  color: #f3f4f6;
+}
+
+.dark-mode .verification-header .header-left .verification-title {
+  color: #f3f4f6;
+}
+
+.dark-mode .verification-header .header-left .verification-subtitle {
+  color: #9ca3af;
+}
+
+.dark-mode .verification-tabs .tab {
+  color: #d1d5db;
+}
+
+.dark-mode .verification-tabs .tab.active {
+  color: #3b82f6;
+}
+
+.dark-mode .search-input {
+  background-color: #374151;
+  color: #f3f4f6;
+  border: 1px solid #4b5563;
+}
+
+.dark-mode .search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.dark-mode .filter-button {
+  background-color: #374151;
+  color: #f3f4f6;
+  border: 1px solid #4b5563;
+}
+
+.dark-mode .filter-button:hover {
+  background-color: #4b5563;
+}
+
+.dark-mode .filter-dropdown {
+  background-color: #1f2937;
+  color: #f3f4f6;
+}
+
+.dark-mode .filter-action.clear {
+  background-color: #1f2937;
+  color: #f3f4f6;
+  border: 1px solid #4b5563;
+}
+
+.dark-mode .filter-action.apply {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+.dark-mode .submissions-table tr:nth-child(even) {
+  background: #2d3748;
+}
+
+.dark-mode .submissions-table tr:hover {
+  background: #3b3f45;
+}
+
+.dark-mode .priority-badge,
+.dark-mode .status-badge {
+  background-color: #3b3f45;
+  color: #f3f4f6;
+}
+
+.dark-mode .submission-detail {
+  background: #1f2937;
+  color: #f3f4f6;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(30, 41, 59, 0.09);
+}
+
+.dark-mode .submission-detail .back-button {
+  color: #3b82f6;
+}
+
+.dark-mode .submission-detail .detail-actions .detail-action-button {
+  background: #2d3748;
+  color: #f3f4f6;
+  border: none;
+}
+
+.dark-mode .submission-detail .detail-action-button.approve {
+  background: #4ade80;
+  color: #065f46;
+}
+
+.dark-mode .submission-detail .detail-action-button.reject {
+  background: #f87171;
+  color: #991b1b;
+}
+
+.dark-mode .submission-detail .detail-action-button.download {
+  background: #374151;
+  color: #3b82f6;
+}
+
+.dark-mode .info-grid {
+  color: #f3f4f6;
+}
+
+.dark-mode .info-label {
+  color: #075985;
+}
+
+.dark-mode .documents-grid {
+  background-color: #2d3748;
+}
+
+.dark-mode .document-card {
+  background: #1f2937;
+  border: 1px solid #374151;
+}
+
+.dark-mode .document-title,
+.dark-mode .document-meta {
+  color: #f3f4f6;
+}
+
+.dark-mode .document-view-button {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.dark-mode .review-textarea {
+  background-color: #374151;
+  color: #f3f4f6;
+  border: 1px solid #4b5563;
+}
+
+.dark-mode .review-textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px #3b82f622;
+}
+
+.dark-mode .confirmation-dialog-overlay {
+  background: rgba(30, 41, 59, 0.5);
+}
+
+.dark-mode .confirmation-dialog {
+  background: #1f2937;
+  color: #f3f4f6;
+}
+
+.dark-mode .confirmation-button.cancel {
+  background: #4b5563;
+  color: #f3f4f6;
+}
+
+.dark-mode .confirmation-button.cancel:hover {
+  background: #374151;
+}
+
+.dark-mode .confirmation-button.approve {
+  background: #4ade80;
+  color: #065f46;
+}
+
+.dark-mode .confirmation-button.reject {
+  background: #f87171;
+  color: #991b1b;
+}
+
+.dark-mode .pagination {
+  color: #f3f4f6;
+}
+
+.dark-mode .pagination-button {
+  background: #374151;
+  color: #f3f4f6;
+  border: none;
+}
+
+.dark-mode .pagination-button:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.dark-mode .action-buttons .action-button {
+  background: #374151;
+  color: #f3f4f6;
+}
+
+.dark-mode .action-button.view {
+  background: #3b82f6;
+}
+
+.dark-mode .action-button.approve {
+  background: #4ade80;
+  color: #065f46;
+}
+
+.dark-mode .action-button.reject {
+  background: #f87171;
+  color: #991b1b;
+}
+
+.dark-mode .action-button.download {
+  background: #374151;
+  color: #3b82f6;
+}
+
+.dark-mode .action-button.view:hover,
+.dark-mode .action-button.view:focus {
+  background: #2563eb;
+  color: #fff;
+}
+
+.dark-mode .action-button.approve:hover,
+.dark-mode .action-button.approve:focus {
+  background: #22d3ee;
+  color: #075985;
+}
+
+.dark-mode .action-button.reject:hover,
+.dark-mode .action-button.reject:focus {
+  background: #f43f5e;
+  color: #fff;
+}
+
+.dark-mode .action-button.download:hover,
+.dark-mode .action-button.download:focus {
+  background: #3b82f6;
+  color: #fff;
+}
+
+/* Optional: Tooltip styling for actions in dark mode */
+.dark-mode .action-button[title]::after {
+  content: attr(title);
+  position: absolute;
+  left: 50%;
+  bottom: 110%;
+  transform: translateX(-50%);
+  background: #f3f4f6;
+  color: #334155;
+}
+
+.dark-mode .action-button:hover[title]::after,
+.dark-mode .action-button:focus[title]::after {
+  opacity: 1;
+}

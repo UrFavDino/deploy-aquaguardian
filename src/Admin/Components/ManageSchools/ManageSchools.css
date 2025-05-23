@@ -1,0 +1,587 @@
+/* Base styles for light mode */
+.manage-schools-container {
+  min-height: 100vh;
+  background: #f8f9fc;
+  font-family: "Inter", sans-serif;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.manage-schools-content {
+  max-width: 1200px;
+  margin: 2.5rem auto;
+  background: #fff;
+  border-radius: 0.9rem;
+  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.06);
+  padding: 2.2rem 2.2rem 2.5rem 2.2rem;
+}
+
+.schools-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.add-school-btn {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.17s;
+  cursor: pointer;
+}
+
+.add-school-btn:hover {
+  background: #2563eb;
+}
+
+.schools-searchbar {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  gap: 0.5rem;
+}
+
+.schools-searchbar input {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  flex: 1;
+  outline: none;
+}
+
+.schools-table-wrapper {
+  overflow-x: auto;
+  margin-top: 0.7rem;
+}
+
+.schools-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.schools-table th,
+.schools-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 1rem;
+}
+
+.schools-table th {
+  color: #334155;
+  background: #f8f9fc;
+  font-weight: 700;
+}
+
+.schools-table tr:last-child td {
+  border-bottom: none;
+}
+
+.no-data {
+  text-align: center;
+  color: #64748b;
+  font-size: 1.05rem;
+  padding: 2rem 0;
+}
+
+.manage-users-btn {
+  background: #f1f5f9;
+  color: #2563eb;
+  border: none;
+  border-radius: 0.45rem;
+  padding: 0.35rem 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.manage-users-btn:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.actions-group {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.action-icon {
+  background: #f1f5f9;
+  border: none;
+  border-radius: 0.45rem;
+  padding: 0.3rem 0.55rem;
+  color: #334155;
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.action-icon:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.action-icon.danger:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* remove any padding that could constrain the modal size */
+}
+
+.modal {
+  max-width: 900vmax; /* Allow it to be full-width */
+  width: 100%; /* Allow it to scale */
+  /* Remove or adjust max-width as needed */
+  background-color: #16a34a;
+}
+
+.modal-body {
+  padding: 0.5rem 1.4rem 0 1.4rem;
+  max-height: 800px; /* Set a max height */
+  overflow-y: auto; /* Make the body scrollable if content overflows */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #3b82f6 #f8f9fc; /* For Firefox (optional) */
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: #3b82f6;
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background-color: #f8f9fc;
+}
+
+/* Optional: To prevent modal body from growing too large */
+.modal-body {
+  overflow-y: auto; /* Ensures scrolling within modal */
+  max-height: 70vh; /* Limits the height of modal body */
+}
+
+@keyframes pop-in {
+  from {
+    transform: translateY(35px) scale(0.94);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  padding: 1.2rem 1.4rem 0.5rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: 0.4rem;
+  transition: background 0.13s, color 0.13s;
+}
+
+.modal-close:hover {
+  background: #f1f5f9;
+  color: #3b82f6;
+}
+
+.modal-body {
+  padding: 0.5rem 1.4rem 0 1.4rem;
+}
+
+.modal-body label {
+  display: block;
+  margin-bottom: 1.05rem;
+}
+
+.modal-body label span {
+  display: block;
+  color: #334155;
+  font-weight: 500;
+  margin-bottom: 0.22rem;
+  font-size: 0.98rem;
+}
+
+.modal-body input {
+  width: 100%;
+  padding: 0.45rem 0.7rem;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid #e2e8f0;
+  background: #f8f9fc;
+  transition: border 0.14s;
+}
+
+.modal-body input:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+.modal-actions {
+  margin-top: 1.2rem;
+  padding: 0 1.4rem;
+  display: flex;
+  gap: 0.7rem;
+  justify-content: flex-end;
+}
+
+.modal-btn {
+  padding: 0.43rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  transition: background 0.17s, color 0.17s;
+}
+
+.modal-btn.save {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.modal-btn.save:hover {
+  background: #2563eb;
+}
+
+.modal-btn.cancel {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.modal-btn.cancel:hover {
+  background: #e2e8f0;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.1rem;
+}
+
+.user-table th,
+.user-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.user-table th {
+  color: #334155;
+  font-weight: 600;
+  background: #f8f9fc;
+}
+
+.user-table tr:last-child td {
+  border-bottom: none;
+}
+
+.user-form {
+  background: #f8f9fc;
+  padding: 0.8rem 1rem;
+  border-radius: 0.7rem;
+}
+
+.user-form h4 {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-form-fields {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.user-form-fields input {
+  flex: 1 0 180px;
+}
+
+.user-form-fields .modal-btn {
+  flex: 0 0 auto;
+}
+
+/* Action Buttons for Actions Column */
+.action-buttons {
+  display: flex;
+  gap: 0.35rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.action-button {
+  background: #f1f5f9;
+  border: none;
+  border-radius: 0.55rem;
+  padding: 0.32rem 0.62rem;
+  color: #3b82f6;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, box-shadow 0.17s;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.97rem;
+  box-shadow: 0 1px 3px #3b82f60a;
+}
+
+.action-button.view:hover,
+.action-button.view:focus {
+  background: #e0e7ff;
+  color: #2563eb;
+}
+
+.action-button.delete {
+  color: #b91c1c;
+}
+
+.action-button.delete:hover,
+.action-button.delete:focus {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Confirmation Modal for Delete */
+.confirmation-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 41, 59, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.confirmation-dialog {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 40px #3b82f633;
+  padding: 2.2rem 2rem 1.7rem 2rem;
+  max-width: 370px;
+  width: 100%;
+  animation: pop-in 0.2s;
+  text-align: center;
+}
+
+.confirmation-title {
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmation-message {
+  color: #334155;
+  font-size: 1.05rem;
+  margin-bottom: 1.6rem;
+}
+
+.confirmation-actions {
+  display: flex;
+  gap: 1.1rem;
+  justify-content: center;
+}
+
+.confirmation-button {
+  min-width: 95px;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  font-size: 1.07rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s;
+}
+
+.confirmation-button.cancel {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.confirmation-button.cancel:hover {
+  background: #e2e8f0;
+}
+
+.confirmation-button.delete {
+  background: #ef4444;
+  color: #fff;
+}
+
+.confirmation-button.delete:hover {
+  background: #dc2626;
+}
+
+/* Dark Mode Styles */
+.dark-mode .manage-schools-container {
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+.dark-mode .manage-schools-content {
+  background: #1f2937;
+  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.15);
+}
+
+.dark-mode .schools-header {
+  color: #e2e8f0;
+}
+
+.dark-mode .add-school-btn {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.dark-mode .add-school-btn:hover {
+  background: #2563eb;
+}
+
+.dark-mode .schools-searchbar {
+  background: #2d3748;
+  border: 1px solid #4a5568;
+}
+
+.dark-mode .schools-searchbar input {
+  color: #f3f4f6;
+}
+
+.dark-mode .schools-table th,
+.dark-mode .schools-table td {
+  color: #e2e8f0;
+  background: #2d3748;
+}
+
+.dark-mode .schools-table th {
+  background: #1a202c;
+}
+
+.dark-mode .schools-table tr:last-child td {
+  border-bottom: none;
+}
+
+.dark-mode .no-data {
+  color: #a0aec0;
+}
+
+.dark-mode .manage-users-btn {
+  background: #2d3748;
+  color: #3b82f6;
+}
+
+.dark-mode .actions-group .action-icon {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+.dark-mode .modal {
+  background: #1a202c;
+}
+
+.dark-mode .modal-header h2 {
+  color: #e2e8f0;
+}
+
+.dark-mode .modal-body input {
+  background: #2d3748;
+  border: 1px solid #4a5568;
+}
+
+.dark-mode .modal-btn.save {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.dark-mode .modal-btn.cancel {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+.dark-mode .user-form {
+  background: #2d3748;
+  color: #f3f4f6;
+}
+
+.dark-mode .action-button {
+  background: #2d3748;
+  color: #3b82f6;
+}
+
+.dark-mode .confirmation-dialog {
+  background: #1a202c;
+}
+
+.dark-mode .confirmation-title {
+  color: #e2e8f0;
+}
+
+.dark-mode .confirmation-message {
+  color: #e2e8f0;
+}
+
+.dark-mode .confirmation-button.cancel {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+.dark-mode .confirmation-button.delete {
+  background: #ef4444;
+  color: #fff;
+}
+
+.dark-mode .status-badge.approved {
+  color: #16a34a;
+}
+
+.dark-mode .status-badge.rejected {
+  color: #b91c1c;
+}
+
+.dark-mode .status-badge.pending {
+  color: #f59e42;
+}
