@@ -276,68 +276,114 @@ const UserVerificationReview = () => {
   const handleDownloadPDF = async (submission) => {
     const doc = new jsPDF();
 
-    doc.setFontSize(18);
-    doc.text("User Verification Report", 14, 16);
-
-    doc.setFontSize(12);
-
-    const fields = [
-      ["ID", submission.id],
-      ["Full Name", submission.fullName],
-      ["Email", submission.email],
-      ["School Name", submission.schoolName],
-      ["School Address", submission.address],
-      ["Position", submission.position],
-      ["Submission Date", submission.submissionDate],
-      ["Status", submission.status],
-      ["Review Date", submission.reviewDate || ""],
-      ["Reviewed By", submission.reviewedBy || ""],
-      ["Rejection Reason", submission.rejectionReason || ""],
-    ];
-
-    doc.autoTable({
-      startY: 22,
-      head: [["Field", "Value"]],
-      body: fields,
-      styles: { fontSize: 11, cellPadding: 2, overflow: "linebreak" },
-      headStyles: { fillColor: [59, 130, 246] },
-      columnStyles: {
-        0: { cellWidth: 50 },
-        1: { cellWidth: 120 },
-      },
+    // Set document properties
+    doc.setProperties({
+      title: `Verification Report - ${submission.fullName}`,
+      subject: "User Verification",
+      author: "Admin Portal",
     });
 
+    // Add title
+    doc.setFontSize(18);
+    doc.setTextColor(40);
+    doc.text("User Verification Report", 14, 16);
+
+    // Add subtitle with date
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text(`Generated on ${new Date().toLocaleDateString()}`, 14, 22);
+
+    // Reset font for table
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+
+    // Create table data
+    const fields = [
+      ["ID", submission.id],
+      ["Full Name", submission.fullName || "N/A"],
+      ["Email", submission.email || "N/A"],
+      ["School Name", submission.schoolName || "N/A"],
+      ["School Address", submission.address || "N/A"],
+      ["Position", submission.position || "N/A"],
+      ["Submission Date", submission.submissionDate || "N/A"],
+      ["Status", submission.status || "N/A"],
+      ["Review Date", submission.reviewDate || "N/A"],
+      ["Reviewed By", submission.reviewedBy || "N/A"],
+      ["Rejection Reason", submission.rejectionReason || "N/A"],
+    ];
+
+    // Generate table
+    doc.autoTable({
+      startY: 30,
+      head: [["Field", "Value"]],
+      body: fields,
+      styles: {
+        fontSize: 10,
+        cellPadding: 3,
+        overflow: "linebreak",
+        valign: "middle",
+      },
+      headStyles: {
+        fillColor: [59, 130, 246],
+        textColor: 255,
+        fontStyle: "bold",
+      },
+      columnStyles: {
+        0: { cellWidth: 50, fontStyle: "bold" },
+        1: { cellWidth: 120 },
+      },
+      margin: { top: 30 },
+    });
+
+    // Handle image if available
     if (submission.idPictureUrl) {
       try {
-        const res = await fetch(submission.idPictureUrl, { mode: "cors" });
-        const blob = await res.blob();
-        const reader = new FileReader();
-        reader.onloadend = function () {
-          const imgData = reader.result;
-          doc.addPage();
-          doc.setFontSize(16);
-          doc.text("ID Picture", 14, 20);
-          doc.addImage(imgData, "JPEG", 14, 30, 60, 60);
-          doc.save(
-            `${submission.id}_${submission.fullName?.replace(/\s+/g, "_")}.pdf`
-          );
-        };
-        reader.onerror = function () {
-          doc.save(
-            `${submission.id}_${submission.fullName?.replace(/\s+/g, "_")}.pdf`
-          );
-        };
-        reader.readAsDataURL(blob);
-        return; // Wait for reader
-      } catch (e) {
+        // Add new page for image
+        doc.addPage();
+
+        // Add image title
+        doc.setFontSize(16);
+        doc.text("ID Picture", 14, 20);
+
+        // Fetch image
+        const response = await fetch(submission.idPictureUrl);
+
+        if (!response.ok) throw new Error("Failed to fetch image");
+
+        const blob = await response.blob();
+        const imgData = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.readAsDataURL(blob);
+        });
+
+        // Add image to PDF
+        doc.addImage(imgData, "JPEG", 14, 30, 80, 80);
+
+        // Save PDF
         doc.save(
-          `${submission.id}_${submission.fullName?.replace(/\s+/g, "_")}.pdf`
+          `Verification_${submission.id}_${submission.fullName?.replace(
+            /\s+/g,
+            "_"
+          )}.pdf`
         );
-        return;
+      } catch (error) {
+        console.error("Error adding image to PDF:", error);
+        // Fallback - save without image
+        doc.save(
+          `Verification_${submission.id}_${submission.fullName?.replace(
+            /\s+/g,
+            "_"
+          )}.pdf`
+        );
       }
     } else {
+      // Save without image
       doc.save(
-        `${submission.id}_${submission.fullName?.replace(/\s+/g, "_")}.pdf`
+        `Verification_${submission.id}_${submission.fullName?.replace(
+          /\s+/g,
+          "_"
+        )}.pdf`
       );
     }
   };

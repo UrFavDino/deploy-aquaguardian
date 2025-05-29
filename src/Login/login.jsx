@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "react-feather";
+import CryptoJS from "crypto-js";
 import { supabase } from "../utils/supabaseClient"; // Make sure this path is correct!
 import "./login.css";
 
@@ -17,16 +18,11 @@ const Login = () => {
   });
 
   const handleLogin = async () => {
-    setError({
-      email: "",
-      password: "",
-      general: "",
-    });
+    setError({ email: "", password: "", general: "" });
 
-    // Field validation
+    // --- Field validation ---
     let isValid = true;
     const newError = {};
-
     if (!email) {
       newError.email = "Email Address is required.";
       isValid = false;
@@ -34,39 +30,100 @@ const Login = () => {
       newError.email = "Please enter a valid email address.";
       isValid = false;
     }
-
     if (!password) {
       newError.password = "Password is required.";
       isValid = false;
     }
-
     if (!isValid) {
       setError(newError);
       return;
     }
 
-    // Query Supabase users table for approved account
-    const { data, error: dbError } = await supabase
+    // --- Fetch user(s) by email ---
+    const { data: users, error: fetchError } = await supabase
       .from("users")
       .select("*")
-      .eq("email", email)
-      .eq("password", password) // NOTE: For production, always hash passwords!
-      .eq("review_status", "approved")
-      .single();
+      .eq("email", email);
 
-    if (dbError || !data) {
+    if (fetchError) {
+      setError({ general: "Database error. Please try again." });
+      return;
+    }
+    if (!users || users.length === 0) {
+      setError({ general: "Invalid email or password." });
+      return;
+    }
+
+    // Find user with approved or null review_status
+    let user = users.find(
+      (u) => u.review_status === "approved" || u.review_status == null
+    );
+
+    if (!user) {
+      // Show pending dialog if pending
+      const pendingUser = users.find((u) => u.review_status === "pending");
+      if (pendingUser) {
+        setError({
+          email: "",
+          password: "",
+          general: "Your account is under review. Please wait for approval.",
+        });
+        return;
+      }
+      // Show rejected dialog if rejected
+      const rejectedUser = users.find((u) => u.review_status === "rejected");
+      if (rejectedUser) {
+        setError({
+          email: "",
+          password: "",
+          general: "Your account application has been rejected.",
+        });
+        return;
+      }
       setError({
         email: "",
         password: "",
-        general: "Invalid credentials or your account is not approved.",
+        general: "Account status unknown. Please contact support.",
       });
       return;
     }
 
-    // Store user info in localStorage for session (optional)
-    localStorage.setItem("user", JSON.stringify(data));
+    // --- Password logic (matches Dart logic) ---
+    const enteredHashed = CryptoJS.SHA256(password).toString();
+    const storedPassword = user.password;
 
-    // Navigate to dashboard
+    let passwordMatch = false;
+
+    // 1. Try hashed match (app signup)
+    if (storedPassword === enteredHashed) {
+      passwordMatch = true;
+    }
+    // 2. Try plain-text match (web signup)
+    else if (storedPassword === password) {
+      passwordMatch = true;
+      // Try to upgrade password to hashed version (optional, for security)
+      try {
+        await supabase
+          .from("users")
+          .update({ password: enteredHashed })
+          .eq("id", user.id);
+        // (Optional: you can notify the user the password was updated for security)
+      } catch (e) {
+        // Ignore upgrade failures, still let user login
+      }
+    }
+
+    if (!passwordMatch) {
+      setError({
+        email: "",
+        password: "",
+        general: "Invalid email or password.",
+      });
+      return;
+    }
+
+    // --- Success! ---
+    localStorage.setItem("user", JSON.stringify(user));
     navigate("/dashboard");
   };
 

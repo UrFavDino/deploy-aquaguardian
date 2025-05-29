@@ -21,32 +21,40 @@ const AdminNavbar = () => {
 
   // Fetch pending verifications from Supabase and show as notifications
   useEffect(() => {
-    const fetchPending = async () => {
-      // Fetch pending verifications (adjust table/fields as needed)
+    const fetchAccountNotifications = async () => {
+      // Fetch both pending and new accounts (update review_statuses as needed)
       const { data, error } = await supabase
         .from("users")
-        .select("id,full_name,email,school_name,created_at")
-        .eq("status", "pending");
+        .select("id,full_name,email,school_name,created_at,review_status")
+        .in("review_status", ["pending", "new"]); // Add other statuses if needed
 
       if (data && Array.isArray(data)) {
-        const pendingNotifications = data.map((item) => ({
+        const accountNotifications = data.map((item) => ({
           id: item.id,
-          type: "warning",
-          title: "Pending Verification",
-          message: `${item.full_name || item.email} (${
-            item.school_name || "No School"
-          }) requested verification.`,
+          type: item.review_status === "pending" ? "warning" : "info",
+          title:
+            item.review_status === "pending"
+              ? "Pending Account Verification"
+              : "New Account Registered",
+          message:
+            item.review_status === "pending"
+              ? `${item.full_name || item.email} (${
+                  item.school_name || "No School"
+                }) requested verification.`
+              : `${item.full_name || item.email} (${
+                  item.school_name || "No School"
+                }) just registered an account.`,
           time: item.created_at
             ? timeAgo(new Date(item.created_at))
             : "A moment ago",
           read: false,
           action: "/userverification",
         }));
-        setNotifications(pendingNotifications);
+        setNotifications(accountNotifications);
       }
     };
 
-    fetchPending();
+    fetchAccountNotifications();
   }, []);
 
   // Helper: Time ago formatting

@@ -12,6 +12,10 @@
 .dashboard-header {
   text-align: center;
   margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .dashboard-title {
@@ -22,6 +26,7 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .dashboard-description {

@@ -9,8 +9,15 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import "./Dashboard.css"; // Make sure to replace this file with our updated CSS
+import "./Dashboard.css";
 import DhNavbar from "./Navbar/dh_navbar";
+import { createClient } from "@supabase/supabase-js";
+
+// Initialize Supabase
+const supabaseUrl = "https://cryokbzmtpmclaukyplq.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyeW9rYnptdHBtY2xhdWt5cGxxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4MTkwMjYsImV4cCI6MjA2MzM5NTAyNn0.Vyz14ENyzDdPSWWNk-W3AOVmflJEdDiyH9caycD1M0k";
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -46,21 +53,82 @@ const Dashboard = () => {
     localStorage.getItem("darkMode") === "true"
   );
 
+  // Fetch latest turbidity from Supabase and subscribe to realtime updates
+  useEffect(() => {
+    let subscription = null;
+
+    // Fetch latest turbidity
+    const fetchLatestTurbidity = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("turbidity_readings")
+          .select("turbidity_value,created_at")
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        if (error) {
+          console.error("Error fetching turbidity:", error);
+        } else if (data && data.turbidity_value !== undefined) {
+          setWaterData((prev) => ({
+            ...prev,
+            turbidity: parseFloat(data.turbidity_value),
+          }));
+        }
+      } catch (err) {
+        console.error("Unexpected turbidity fetch error:", err);
+      }
+    };
+
+    // Initial fetch
+    fetchLatestTurbidity();
+
+    // Setup realtime subscription
+    const setupRealtime = async () => {
+      const channel = supabase.channel("public:turbidity_readings").on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "turbidity_readings",
+        },
+        (payload) => {
+          if (
+            payload &&
+            payload.new &&
+            payload.new.turbidity_value !== undefined
+          ) {
+            setWaterData((prev) => ({
+              ...prev,
+              turbidity: parseFloat(payload.new.turbidity_value),
+            }));
+          }
+        }
+      );
+      subscription = channel.subscribe();
+    };
+
+    setupRealtime();
+
+    return () => {
+      // Remove subscription on unmount
+      if (subscription && typeof subscription.unsubscribe === "function") {
+        subscription.unsubscribe();
+      }
+    };
+  }, []);
+
   useEffect(() => {
     // Check for dark mode changes in localStorage
     const handleStorageChange = () => {
       setIsDarkMode(localStorage.getItem("darkMode") === "true");
     };
 
-    // Set up event listener for storage changes
     window.addEventListener("storage", handleStorageChange);
-
-    // Also check periodically for changes in case event isn't triggered
     const checkDarkMode = setInterval(() => {
       setIsDarkMode(localStorage.getItem("darkMode") === "true");
     }, 500);
 
-    // Simulate real-time data updates
+    // Simulate real-time data for other parameters
     const timer = setInterval(() => {
       setCurrentTime(new Date());
       setWaterData((prev) => {
@@ -71,7 +139,7 @@ const Dashboard = () => {
             prev.temperature +
             (Math.random() - 0.5) * 0.2
           ).toFixed(1),
-          turbidity: +(prev.turbidity + (Math.random() - 0.5) * 0.1).toFixed(1),
+          turbidity: prev.turbidity, // turbidity is fetched from Supabase
         };
 
         // Update historical data every 5 seconds
@@ -94,6 +162,7 @@ const Dashboard = () => {
       clearInterval(checkDarkMode);
       window.removeEventListener("storage", handleStorageChange);
     };
+    // eslint-disable-next-line
   }, [currentTime]);
 
   // Function to add current data to historical records
@@ -101,7 +170,6 @@ const Dashboard = () => {
     const timestamp = new Date().toLocaleTimeString();
     setHistoricalData((prev) => {
       const updated = [...prev, { timestamp, ...newData }];
-      // Keep only the last 10 data points
       return updated.length > 10 ? updated.slice(-10) : updated;
     });
   };
@@ -109,52 +177,40 @@ const Dashboard = () => {
   // Calculate overall water quality score
   const calculateQualityScore = (data) => {
     let score = 100;
-
-    // pH score
     if (data.ph < thresholds.ph.min) {
       score -= 5 * (thresholds.ph.min - data.ph);
     } else if (data.ph > thresholds.ph.max) {
       score -= 5 * (data.ph - thresholds.ph.max);
     }
-
-    // TDS score
     if (data.tds < thresholds.tds.min) {
       score -= 0.2 * (thresholds.tds.min - data.tds);
     } else if (data.tds > thresholds.tds.max) {
       score -= 0.2 * (data.tds - thresholds.tds.max);
     }
-
-    // Temperature score
     if (data.temperature < thresholds.temperature.min) {
       score -= 3 * (thresholds.temperature.min - data.temperature);
     } else if (data.temperature > thresholds.temperature.max) {
       score -= 3 * (data.temperature - thresholds.temperature.max);
     }
-
-    // Turbidity score
     if (data.turbidity > thresholds.turbidity.max) {
       score -= 5 * (data.turbidity - thresholds.turbidity.max);
     }
-
     setQualityScore(Math.max(0, Math.min(100, Math.round(score))));
   };
 
   // Generate recommendations based on current water data
   const generateRecommendations = (data) => {
     const newRecommendations = [];
-
     if (data.ph < thresholds.ph.min) {
       newRecommendations.push("Add alkaline buffer to increase pH level");
     } else if (data.ph > thresholds.ph.max) {
       newRecommendations.push("Add pH reducer or vinegar to decrease pH level");
     }
-
     if (data.tds > thresholds.tds.max) {
       newRecommendations.push(
         "Consider a partial water change to reduce TDS levels"
       );
     }
-
     if (data.temperature > thresholds.temperature.max) {
       newRecommendations.push(
         "Reduce water temperature by cooling the environment"
@@ -162,15 +218,12 @@ const Dashboard = () => {
     } else if (data.temperature < thresholds.temperature.min) {
       newRecommendations.push("Increase water temperature using a heater");
     }
-
     if (data.turbidity > thresholds.turbidity.max) {
       newRecommendations.push("Improve filtration system to reduce turbidity");
     }
-
     setRecommendations(newRecommendations);
   };
 
-  // Function to determine the severity of an alert
   const getAlertSeverity = (value, parameter) => {
     switch (parameter) {
       case "ph":
@@ -204,7 +257,6 @@ const Dashboard = () => {
     }
   };
 
-  // Function to get color class based on severity
   const getSeverityColorClass = (severity) => {
     switch (severity) {
       case "high":
@@ -218,7 +270,6 @@ const Dashboard = () => {
     }
   };
 
-  // Function to handle threshold updates
   const updateThreshold = (parameter, type, value) => {
     setThresholds((prev) => ({
       ...prev,
@@ -229,7 +280,6 @@ const Dashboard = () => {
     }));
   };
 
-  // Get quality score color
   const getQualityScoreColor = () => {
     if (qualityScore >= 80) return "green";
     if (qualityScore >= 60) return "orange";
@@ -237,7 +287,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="hero-dashboard">
+    <div className={`hero-dashboard${isDarkMode ? " dark-mode" : ""}`}>
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -246,7 +296,6 @@ const Dashboard = () => {
       <div className="dashboard">
         <main className="dashboard-mains">
           <div className="cards-grid">
-            {/* Card Template */}
             {[
               {
                 title: "pH Level",
@@ -358,7 +407,6 @@ const Dashboard = () => {
 
           <div className="status-alerts">
             <div className="alerts-container">
-              {/* Alerts */}
               <div className="alerts">
                 <h3>Recent Alerts</h3>
                 <div className="alert red-alert">
@@ -377,10 +425,19 @@ const Dashboard = () => {
                   </div>
                   <div className="alert-severity medium">Medium</div>
                 </div>
+                {recommendations.length > 0 && (
+                  <div className="recommendations-section">
+                    <h3>Recommendations</h3>
+                    <ul className="recommendations-list">
+                      {recommendations.map((rec, index) => (
+                        <li key={index}>{rec}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* System Status */}
             <div className="system-status">
               <h3>System Status</h3>
               {["Sensors Online", "Data Collection", "Alert System"].map(
@@ -396,18 +453,6 @@ const Dashboard = () => {
               )}
             </div>
           </div>
-
-          {/* Recommendations Section */}
-          {recommendations.length > 0 && (
-            <div className="recommendations-section">
-              <h3>Recommendations</h3>
-              <ul className="recommendations-list">
-                {recommendations.map((rec, index) => (
-                  <li key={index}>{rec}</li>
-                ))}
-              </ul>
-            </div>
-          )}
         </main>
       </div>
     </div>

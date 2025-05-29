@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
-import BG from "../../assets/landing-bg.jpg";
 
 const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -20,7 +19,10 @@ const Home = () => {
     <div className="home-wrapper">
       <div className="home-hero">
         <div className="home-bg-image">
-          <img src={BG} alt="Water Background" />
+          <img
+            src="https://readdy.ai/api/search-image?query=Beautiful%20clean%20water%20with%20subtle%20blue%20waves%2C%20modern%20minimalist%20design%2C%20high-quality%20professional%20photography%20with%20soft%20gradient%20blue%20background%2C%20perfect%20for%20a%20water%20monitoring%20technology%20landing%20page%2C%20clean%20and%20pristine%20water%20surface%20with%20gentle%20ripples&width=1440&height=600&seq=1&orientation=landscape"
+            alt="Water Background"
+          />
           <div className="home-overlay"></div>
         </div>
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "../../utils/supabaseClient";
-import bcrypt from "bcryptjs";
 import "./reg2.css";
 
 const Signup2 = () => {
@@ -99,22 +98,12 @@ const Signup2 = () => {
       }
     }
 
-    // 2. Hash password client side (not recommended for production!)
-    let hashedPassword = "";
-    try {
-      hashedPassword = await bcrypt.hash(password, 10);
-    } catch (err) {
-      setSupabaseError("Failed to hash password.");
-      setLoading(false);
-      return;
-    }
-
-    // 3. Insert into users table (pending status) with hashed password
+    // 2. Insert into users table (pending status)
     const { error: dbError } = await supabase.from("users").insert([
       {
         full_name: fullName,
         email,
-        password: hashedPassword, // Storing hash (not plaintext!)
+        password, // Store encrypted or hashed in production!
         position,
         school_name: schoolName,
         school_address: schoolAddress,

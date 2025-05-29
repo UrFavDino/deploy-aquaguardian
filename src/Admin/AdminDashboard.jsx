@@ -42,8 +42,26 @@ const AdminDashboard = () => {
       const { count, error } = await supabase
         .from("users")
         .select("*", { count: "exact", head: true })
-        .eq("status", "pending"); // Change "status" to your pending field if needed
-      if (!error) setPendingCount(count || 0);
+        .eq("review_status", "pending");
+
+      if (!error) {
+        setPendingCount(count || 0);
+        console.log("DEBUG: Found", count, "pending verifications");
+      } else {
+        console.error("Error fetching pending count:", error);
+      }
+    };
+
+    // Debug: Fetch pending users details
+    const fetchPendingDetails = async () => {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("review_status", "pending");
+
+      if (!error && data) {
+        console.log("Pending users:", data);
+      }
     };
 
     // Fetch number of unique schools
@@ -62,6 +80,7 @@ const AdminDashboard = () => {
     };
 
     fetchPending();
+    fetchPendingDetails();
     fetchSchools();
   }, []);
 
@@ -137,30 +156,6 @@ const AdminDashboard = () => {
         text: "View Analytics",
         action: handleViewData,
         className: "primary",
-      },
-    },
-    {
-      key: "settings",
-      icon: <Settings size={24} className="section-icon" />,
-      title: "System Settings",
-      description:
-        "Configure system-wide settings, notification preferences, and maintenance schedules. Manage backup and security policies.",
-      button: {
-        text: "Manage Settings",
-        action: handleSettings,
-        className: "secondary",
-      },
-    },
-    {
-      key: "support",
-      icon: <HelpCircle size={24} className="section-icon" />,
-      title: "Help & Support",
-      description:
-        "Access documentation, tutorials, and contact support for assistance with administrative tasks and troubleshooting.",
-      button: {
-        text: "Get Support",
-        action: handleHelp,
-        className: "secondary",
       },
     },
   ];
